@@ -84,8 +84,8 @@ if have_udocker; then
     echo "If GHCR is private, make the package public (GitHub → Packages → package settings)."
     exit 1
   fi
-  # Create once; reuse afterwards
-  if ! udocker ps -a 2>/dev/null | grep -q "$CONT"; then
+  # Create once; reuse afterwards (udocker has no `ps -a`)
+  if ! udocker ps 2>/dev/null | grep -Fq "$CONT"; then
     udocker create --name="$CONT" "$REPO_NAME" >/dev/null
   fi
   # Image ENTRYPOINT is already gbactpro_predict.py — pass CLI args only.
