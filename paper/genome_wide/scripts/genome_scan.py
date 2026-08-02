@@ -15,9 +15,12 @@ Inference: each batch runs one model.predict on [forward_batch ; reverse_batch] 
 """
 from __future__ import annotations
 
+import os
+
+os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
+
 import argparse
 import csv
-import os
 from pathlib import Path
 
 import numpy as np

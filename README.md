@@ -10,7 +10,7 @@ GBactpro scores whether a fixed-length DNA sequence is a promoter. Version 1 shi
 
 | Item | Requirement |
 |------|-------------|
-| Sequence length | **27–31 bp** (core promoter window). Sequences are **post-padded** to maxlen **31**. Lengths &gt; 31 are rejected. |
+| Sequence length | **27–31 bp** (core promoter window). Sequences are **post-padded** to maxlen **31**. Lengths > 31 are rejected. |
 | Input format | DNA **FASTA** (`A/C/G/T`; `U` accepted as `T`). No `N`. |
 | Output | TSV with `id`, `sequence`, `length`, `score`, `prediction`, `threshold` |
 
@@ -24,11 +24,17 @@ For ranking or PR/ROC analyses, use the raw `score` column rather than the hard 
 
 ### Option A: conda (recommended)
 
+**Prerequisites:** [conda](https://docs.conda.io/) / mamba, and [Git LFS](https://git-lfs.com/) (model weights are ~127 MB each).
+
 ```bash
-git clone <this-repo-url> GBactpro
+# Install Git LFS once (Ubuntu/Debian: sudo apt install git-lfs)
+git lfs install
+
+git clone https://github.com/ximenahan/GBactPro_v1.git GBactpro
 cd GBactpro
-# Large weight files use Git LFS (>100 MB). Install git-lfs, then:
-#   git lfs install && git lfs pull
+# If weights look like tiny text pointers instead of ~127 MB files:
+#   git lfs pull
+
 conda env create -f environment.yml
 conda activate gbactpro
 ./setup.sh
@@ -38,10 +44,15 @@ conda activate gbactpro
 ### Option B: Docker
 
 ```bash
+git clone https://github.com/ximenahan/GBactPro_v1.git GBactpro
+cd GBactpro
+git lfs pull   # required so the image includes real model weights
+
 docker build -t gbactpro .
-docker run --rm -v "$PWD/example:/data" gbactpro \
+mkdir -p results
+docker run --rm -v "$PWD/example:/data" -v "$PWD/results:/results" gbactpro \
   -i /data/input/sequences.fasta \
-  -o /data/output/predictions.tsv
+  -o /results/predictions.tsv
 ```
 
 ---
@@ -141,10 +152,7 @@ MIT — see [LICENSE](LICENSE).
 
 ## Versioning / releases
 
-| Tag | Contents |
-|-----|----------|
-| `v1.0.0` | Fixed-length Type 1 predict CLI + examples + Docker/CI |
-| `v1.1.0` | Adds `paper/genome_wide` full reproduce pipeline |
+Current release (`VERSION` = 1.0.0) includes the fixed-length predict CLI **and** the `paper/genome_wide` reproduce pipeline (`--quick` / `--full`).
 
 Repo version string: [`VERSION`](VERSION). Model provenance is recorded in each `models/*/metadata.json`.
 

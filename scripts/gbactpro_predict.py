@@ -7,6 +7,11 @@ Default model: type1_35s10_random (27–31 bp windows, post-padded to maxlen 31)
 """
 from __future__ import annotations
 
+import os
+
+# Must be set before TensorFlow is imported (including via encode.py).
+os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
+
 import argparse
 import csv
 import sys
