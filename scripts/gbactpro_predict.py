@@ -10,7 +10,10 @@ from __future__ import annotations
 import os
 
 # Must be set before TensorFlow is imported (including via encode.py).
-os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
+# Level 3 hides the noisy "cuInit: CUDA_ERROR_NO_DEVICE" line on CPU-only machines.
+# Override with: GBACTPRO_TF_VERBOSE=1
+if os.environ.get("GBACTPRO_TF_VERBOSE") != "1":
+    os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 import argparse
 import csv

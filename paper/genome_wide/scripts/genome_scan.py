@@ -17,7 +17,8 @@ from __future__ import annotations
 
 import os
 
-os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
+if os.environ.get("GBACTPRO_TF_VERBOSE") != "1":
+    os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 import argparse
 import csv

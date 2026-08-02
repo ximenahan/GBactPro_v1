@@ -43,6 +43,8 @@ conda activate gbactpro
 
 ### Option B: Docker
 
+Requires a working Docker daemon (your user must be allowed to run `docker`, e.g. in the `docker` group).
+
 ```bash
 git clone https://github.com/ximenahan/GBactPro_v1.git GBactpro
 cd GBactpro

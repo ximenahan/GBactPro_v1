@@ -12,7 +12,7 @@ RUN conda env create -f environment.yml \
     && conda clean -afy
 
 ENV PATH=/opt/conda/envs/gbactpro/bin:$PATH
-ENV TF_CPP_MIN_LOG_LEVEL=2
+ENV TF_CPP_MIN_LOG_LEVEL=3
 
 COPY . .
 
