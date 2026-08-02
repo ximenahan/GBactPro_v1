@@ -72,24 +72,29 @@ if have_udocker; then
   export PATH="${HOME}/.local/bin:${PATH}"
   echo "[container_predict] docker daemon not usable; using udocker → $IMAGE"
   udocker install >/dev/null 2>&1 || true
-  udocker pull "$IMAGE"
   CONT="gbactpro_predict"
-  # Recreate container from latest pull
-  udocker rm "$CONT" >/dev/null 2>&1 || true
-  REPO_NAME="$(udocker images | awk 'BEGIN{IGNORECASE=1} /gbactpro/ {print $1; exit}')"
+  REPO_NAME="$(udocker images 2>/dev/null | awk 'BEGIN{IGNORECASE=1} /gbactpro/ {print $1; exit}')"
+  if [[ -z "${REPO_NAME:-}" ]]; then
+    echo "[container_predict] pulling $IMAGE (first time) ..."
+    udocker pull "$IMAGE"
+    REPO_NAME="$(udocker images | awk 'BEGIN{IGNORECASE=1} /gbactpro/ {print $1; exit}')"
+  fi
   if [[ -z "${REPO_NAME:-}" ]]; then
     echo "ERROR: udocker could not find a pulled gbactpro image."
     echo "If GHCR is private, make the package public (GitHub → Packages → package settings)."
     exit 1
   fi
-  udocker create --name="$CONT" "$REPO_NAME" >/dev/null
+  # Create once; reuse afterwards
+  if ! udocker ps -a 2>/dev/null | grep -q "$CONT"; then
+    udocker create --name="$CONT" "$REPO_NAME" >/dev/null
+  fi
+  # Image ENTRYPOINT is already gbactpro_predict.py — pass CLI args only.
   udocker run \
     --volume="$IN_DIR:/in" \
     --volume="$OUT_DIR:/out" \
     "$CONT" \
-    python /opt/gbactpro/scripts/gbactpro_predict.py \
-      -i "/in/$IN_BASE" \
-      -o "/out/$OUT_BASE"
+    -i "/in/$IN_BASE" \
+    -o "/out/$OUT_BASE"
   echo "[container_predict] wrote $OUT_HOST"
   exit 0
 fi
