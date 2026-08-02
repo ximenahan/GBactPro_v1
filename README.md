@@ -41,21 +41,33 @@ conda activate gbactpro
 ./test.sh
 ```
 
-### Option B: Docker
+### Option B: container (Docker or udocker)
 
-Requires a working Docker daemon (your user must be allowed to run `docker`, e.g. in the `docker` group).
+**Easiest:** pull the pre-built image from GitHub Container Registry (built by CI):
 
 ```bash
 git clone https://github.com/ximenahan/GBactPro_v1.git GBactpro
 cd GBactpro
-git lfs pull   # required so the image includes real model weights
-
-docker build -t gbactpro .
 mkdir -p results
-docker run --rm -v "$PWD/example:/data" -v "$PWD/results:/results" gbactpro \
-  -i /data/input/sequences.fasta \
-  -o /results/predictions.tsv
+
+# If you have Docker daemon access:
+docker pull ghcr.io/ximenahan/gbactpro:latest
+./scripts/container_predict.sh \
+  -i example/input/sequences.fasta \
+  -o results/predictions.tsv
 ```
+
+`scripts/container_predict.sh` auto-falls back to [udocker](https://github.com/indigo-dc/udocker) when `/var/run/docker.sock` is not usable (common on HPC). Install once with `pip install --user udocker && udocker install`.
+
+**Build locally** (needs Docker daemon + Git LFS weights):
+
+```bash
+git lfs pull
+docker build -t gbactpro:local .
+GBACTPRO_LOCAL_TAG=gbactpro:local ./scripts/container_predict.sh
+```
+
+If `docker info` fails with *permission denied*, ask an admin to run `sudo usermod -aG docker $USER`, then log out and back in. Conda (Option A) does not need Docker.
 
 ---
 
