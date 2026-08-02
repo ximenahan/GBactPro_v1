@@ -1,0 +1,20 @@
+>promoter_example_1 E.coli_MG1655_positive label=1 orig=promoter_example_1
+TAGTCATGTTACGCCGATCATGTTAATTT
+>promoter_example_2 E.coli_MG1655_positive label=1 orig=promoter_example_2
+TTTACCATCAACCCGAGGCCTCCTATATG
+>promoter_example_3 E.coli_MG1655_positive label=1 orig=promoter_example_3
+TGGTATTGCTGGATTAAGCAGGTAACAT
+>promoter_example_4 E.coli_MG1655_positive label=1 orig=promoter_example_4
+TTCTCCGCCTATGCATTGGTGTTTATTGT
+>promoter_example_5 E.coli_MG1655_positive label=1 orig=promoter_example_5
+TGGTCACAACGGCAGCAAAGCATTACACT
+>nonpromoter_example_1 E.coli_MG1655_negative label=0 orig=nonpromoter_example_1
+ATTACGCTTATAAAGATTTGGTGAAAATT
+>nonpromoter_example_2 E.coli_MG1655_negative label=0 orig=nonpromoter_example_2
+GATCTTCAATGGTGTCGACGCGCACCGGC
+>nonpromoter_example_3 E.coli_MG1655_negative label=0 orig=nonpromoter_example_3
+GCGTAGCACCATAAAAACTTGATGGGGA
+>nonpromoter_example_4 E.coli_MG1655_negative label=0 orig=nonpromoter_example_4
+TATCCTTTTGCTGACGGTGGATTCGTGCT
+>nonpromoter_example_5 E.coli_MG1655_negative label=0 orig=nonpromoter_example_5
+AGACCTCCCTGAAATCGAACGGCGGTAAA

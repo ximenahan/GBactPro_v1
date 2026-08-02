@@ -1,0 +1,8 @@
+test_output/
+results/
+paper/genome_wide/output/
+.git/
+__pycache__/
+*.pyc
+*.log
+.ipynb_checkpoints/

@@ -1,0 +1,2 @@
+# TensorFlow weight shards exceed GitHub's 100 MB limit — use Git LFS.
+models/**/variables/variables.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,17 @@
+{
+  "model_id": "type1_pre_max29bp_random",
+  "description": "Genome-scan Type1 model: core promoter windows <=29 bp, pre-padded to maxlen 29",
+  "type_name": "type1_pre_max29bp",
+  "region": "35+s+10_pre_max29bp",
+  "negative_type": "random",
+  "maxlen": 29,
+  "expected_length_range": [27, 29],
+  "padding": "pre",
+  "alphabet": ["A", "T", "C", "G"],
+  "output": "sigmoid score in [0, 1]; higher = more promoter-like",
+  "default_threshold": 0.5,
+  "framework": "tensorflow/keras SavedModel",
+  "training_pool": "43 bacterial species (genome_use pooled training; directory historically named genome_use_49)",
+  "provenance": "GBactpro_BH/03_model_training_v3_genome_use/scripts/models/lstm/genome_use_49/35+s+10_pre_max29bp/random",
+  "note": "Distinct from type1_35s10_random (maxlen 31, post-pad). Use this checkpoint for paper/genome_wide reproduction."
+}

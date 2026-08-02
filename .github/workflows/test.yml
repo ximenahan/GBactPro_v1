@@ -1,0 +1,35 @@
+name: test
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  predict-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: gbactpro
+          environment-file: environment.yml
+          python-version: "3.8"
+          auto-activate-base: false
+
+      - name: Verify model weights present
+        shell: bash -l {0}
+        run: |
+          test -f models/type1_35s10_random/saved_model.pb
+          test -f models/type1_35s10_random/variables/variables.data-00000-of-00001
+
+      - name: Run predict smoke test
+        shell: bash -l {0}
+        run: |
+          export TF_CPP_MIN_LOG_LEVEL=2
+          ./test.sh

@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.DS_Store
+*.log
+test_output/
+results/
+paper/genome_wide/output/
+.ipynb_checkpoints/
+.mypy_cache/
+.pytest_cache/
+*.tsv.bak

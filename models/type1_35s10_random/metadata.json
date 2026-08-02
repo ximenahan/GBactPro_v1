@@ -1,0 +1,16 @@
+{
+  "model_id": "type1_35s10_random",
+  "description": "Core promoter binary classifier (Minus35 + Spacer + Minus10)",
+  "type_name": "type1_35s10",
+  "region": "35+s+10",
+  "negative_type": "random",
+  "maxlen": 31,
+  "expected_length_range": [27, 31],
+  "padding": "post",
+  "alphabet": ["A", "T", "C", "G"],
+  "output": "sigmoid score in [0, 1]; higher = more promoter-like",
+  "default_threshold": 0.5,
+  "framework": "tensorflow/keras SavedModel",
+  "training_pool": "43 bacterial species (integrated_43)",
+  "provenance": "GBactpro_BH/03_model_training_v3_integrated_data/scripts/models/lstm/integrated_43/35+s+10/random"
+}
